@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toolox app - Daily Work Tools</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#007bff" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #00e676;
+      user-select: none;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-button {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #222;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      border: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1rem;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tool-button:hover {
+      background: #00e676;
+      color: #121212;
+      transform: translateY(-5px);
+    }
+
+    .tool-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .tool-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .tool-desc {
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: #a5d6a7;
+      line-height: 1.2;
+    }
+
+    footer {
+      background: #1f1f1f;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>Toolox app</header>
+
+<main>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/speech%20to%20text.html"><button class="tool-button">
+    <div class="tool-icon">🗣️</div>
+    <div class="tool-label">Speech to Text</div>
+    <div class="tool-desc">Speak and convert your voice to text instantly.</div>
+  </button></a>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/Weight%20converter.html"><button class="tool-button">
+    <div class="tool-icon">⚖️</div>
+    <div class="tool-label">Weight Converter</div>
+    <div class="tool-desc">Convert weights between kilograms, pounds, stones, and more.</div>
+  </button></a>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/Height%20converter.html"><button class="tool-button">
+    <div class="tool-icon">📏</div>
+    <div class="tool-label">Height Converter</div>
+    <div class="tool-desc">Convert height measurements like cm, feet, and inches easily.</div>
+  </button></a>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/World%20clock.html"><button class="tool-button">
+    <div class="tool-icon">🌍</div>
+    <div class="tool-label">World Clock</div>
+    <div class="tool-desc">Check current times in different cities and time zones.</div>
+  </button></a>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/Age%20calculator.html"><button class="tool-button">
+    <div class="tool-icon">🎂</div>
+    <div class="tool-label">Age Calculator</div>
+    <div class="tool-desc">Calculate your age based on your birthdate.</div>
+  </button></a>
+  <a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Tools/Text%20editor.html"><button class="tool-button">
+    <div class="tool-icon">✍️</div>
+    <div class="tool-label">Text Editor</div>
+    <div class="tool-desc">Write and edit text; save as PDF or TXT files.</div>
+  </button></a>
+</main>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(reg => console.log("✅ Service Worker registered!", reg))
+        .catch(err => console.log("❌ Service Worker error!", err));
+    });
+  }
+</script>
+
+
+
+
+<footer>© 2025 Toolox app by Xo Box web services</footer>
+
+</body>
+</html>

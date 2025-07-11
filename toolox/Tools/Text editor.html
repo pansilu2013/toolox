@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text Editor - Toolox</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 20px;
+    }
+    .editor-container {
+      max-width: 700px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+      resize: vertical;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #00e676;
+      color: #121212;
+      padding: 10px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #00c85a;
+    }
+    .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    }
+    .back:hover {
+      background: #00c853;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Text Editor</h1>
+
+<div class="editor-container">
+  <textarea id="textInput" placeholder="Start writing your note here..."></textarea>
+  <br />
+  <button onclick="downloadTXT()">Download .TXT</button>
+  <button onclick="downloadPDF()">Download .PDF</button>
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+
+<!-- PDF library (for .pdf export) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  function downloadTXT() {
+    const text = document.getElementById("textInput").value;
+    const blob = new Blob([text], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "note.txt";
+    link.click();
+  }
+
+  async function downloadPDF() {
+    const text = document.getElementById("textInput").value;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    const lines = pdf.splitTextToSize(text, 180);
+    pdf.text(lines, 10, 20);
+    pdf.save("note.pdf");
+  }
+</script>
+
+</body>
+</html>

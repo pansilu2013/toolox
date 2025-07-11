@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Calculator - Techanalogia</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 30px;
+    }
+    .calculator {
+      max-width: 400px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+    }
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .result {
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #a5d6a7;
+      line-height: 1.6;
+    }
+    .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+   }
+   .back:hover {
+     background: #00c853;
+   }
+  </style>
+</head>
+<body>
+
+<h1>Age Calculator</h1>
+
+<div class="calculator">
+  <input type="date" id="birthdate" />
+  <div class="result" id="ageResult">Select your birthdate to see age.</div>
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+<script>
+  const birthdateInput = document.getElementById("birthdate");
+  const ageResult = document.getElementById("ageResult");
+
+  birthdateInput.addEventListener("change", () => {
+    const birthDate = new Date(birthdateInput.value);
+    const today = new Date();
+
+    if (birthDate == "Invalid Date" || birthDate > today) {
+      ageResult.textContent = "Please enter a valid past date.";
+      return;
+    }
+
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+
+    if (days < 0) {
+      months--;
+      days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    const totalDaysLived = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+
+    ageResult.innerHTML = `
+      <strong>Age:</strong> ${years} years, ${months} months, ${days} days<br>
+      <strong>Total Days Lived:</strong> ${totalDaysLived} days
+    `;
+  });
+</script>
+
+</body>
+</html>

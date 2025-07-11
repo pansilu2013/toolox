@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speech to Text - Toolox</title>
+<style>
+  body {
+    margin: 0; 
+    font-family: 'Poppins', sans-serif;
+    background: #121212;
+    color: #fff;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    color: #00e676;
+    margin-bottom: 20px;
+  }
+  textarea {
+    width: 100%;
+    max-width: 500px;
+    height: 200px;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    border: none;
+    resize: none;
+    background: #222;
+    color: #eee;
+  }
+  button {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #00c853;
+  }
+  .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+  }
+  .back:hover {
+    background: #00c853;
+  }
+  .status {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #a5d6a7;
+  }
+</style>
+</head>
+<body>
+
+<h1>Speech to Text</h1>
+
+<textarea id="text" placeholder="Your speech will appear here..." readonly></textarea>
+
+<div>
+  <button id="startBtn">Start</button>
+  <button id="stopBtn" disabled>Stop</button>
+  <button id="clearBtn">Clear</button>
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+<div class="status" id="status">Click "Start" and speak...</div>
+
+<script>
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const textArea = document.getElementById('text');
+  const status = document.getElementById('status');
+
+  // Check for browser support
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    status.textContent = "Sorry, your browser does not support Speech Recognition.";
+    startBtn.disabled = true;
+  } else {
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US'; // You can change language here
+    recognition.interimResults = true;
+    recognition.continuous = true;
+
+    recognition.onstart = () => {
+      status.textContent = "Listening... Speak now.";
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    };
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      textArea.value = transcript;
+    };
+
+    recognition.onerror = (event) => {
+      status.textContent = 'Error occurred: ' + event.error;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+
+    recognition.onend = () => {
+      status.textContent = "Stopped listening.";
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+
+    startBtn.addEventListener('click', () => {
+      recognition.start();
+    });
+
+    stopBtn.addEventListener('click', () => {
+      recognition.stop();
+    });
+  }
+
+  clearBtn.addEventListener('click', () => {
+    textArea.value = '';
+    status.textContent = "Text cleared. Click Start and speak...";
+  });
+</script>
+
+</body>
+</html>

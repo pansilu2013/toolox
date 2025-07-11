@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weight Converter - Toolox</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 30px;
+    }
+    .converter {
+      max-width: 400px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .result {
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #a5d6a7;
+    }
+    .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+   }
+   .back:hover {
+     background: #00c853;
+   }
+  </style>
+</head>
+<body>
+
+<h1>Weight Converter</h1>
+
+<div class="converter">
+  <input type="number" id="weightInput" placeholder="Enter value" />
+
+  <select id="unitInput">
+    <option value="kg">Kilograms (kg)</option>
+    <option value="g">Grams (g)</option>
+    <option value="lb">Pounds (lb)</option>
+    <option value="t">Tons (t)</option>
+  </select>
+
+  <div class="result" id="output">
+    Enter a value and select a unit.
+  </div>
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+<script>
+  const weightInput = document.getElementById("weightInput");
+  const unitInput = document.getElementById("unitInput");
+  const output = document.getElementById("output");
+
+  function convertWeight() {
+    const value = parseFloat(weightInput.value);
+    const unit = unitInput.value;
+
+    if (isNaN(value)) {
+      output.textContent = "Please enter a valid number.";
+      return;
+    }
+
+    let kg, g, lb, t;
+
+    switch (unit) {
+      case "kg":
+        kg = value;
+        g = value * 1000;
+        lb = value * 2.20462;
+        t = value / 1000;
+        break;
+      case "g":
+        kg = value / 1000;
+        g = value;
+        lb = kg * 2.20462;
+        t = kg / 1000;
+        break;
+      case "lb":
+        kg = value / 2.20462;
+        g = kg * 1000;
+        lb = value;
+        t = kg / 1000;
+        break;
+      case "t":
+        kg = value * 1000;
+        g = kg * 1000;
+        lb = kg * 2.20462;
+        t = value;
+        break;
+    }
+
+    output.innerHTML = `
+      <strong>Kilograms:</strong> ${kg.toFixed(3)} kg<br>
+      <strong>Grams:</strong> ${g.toFixed(1)} g<br>
+      <strong>Pounds:</strong> ${lb.toFixed(3)} lb<br>
+      <strong>Tons:</strong> ${t.toFixed(4)} t
+    `;
+  }
+
+  weightInput.addEventListener("input", convertWeight);
+  unitInput.addEventListener("change", convertWeight);
+</script>
+
+</body>
+</html>

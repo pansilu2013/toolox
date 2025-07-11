@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Height Converter - Toolox</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 30px;
+    }
+    .converter {
+      max-width: 400px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .result {
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #a5d6a7;
+    }
+    .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+   }
+   .back:hover {
+     background: #00c853;
+   }
+  </style>
+</head>
+<body>
+
+<h1>Height Converter</h1>
+
+<div class="converter">
+  <input type="number" id="heightInput" placeholder="Enter value" />
+
+  <select id="unitInput">
+    <option value="cm">Centimeters (cm)</option>
+    <option value="m">Meters (m)</option>
+    <option value="ft">Feet (ft)</option>
+    <option value="in">Inches (in)</option>
+  </select>
+
+  <div class="result" id="output">
+    Enter a value and select a unit.
+  </div>
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+<script>
+  const heightInput = document.getElementById("heightInput");
+  const unitInput = document.getElementById("unitInput");
+  const output = document.getElementById("output");
+
+  function convertHeight() {
+    const value = parseFloat(heightInput.value);
+    const unit = unitInput.value;
+
+    if (isNaN(value)) {
+      output.textContent = "Please enter a valid number.";
+      return;
+    }
+
+    let cm, m, ft, inch;
+
+    switch (unit) {
+      case "cm":
+        cm = value;
+        m = value / 100;
+        ft = value / 30.48;
+        inch = value / 2.54;
+        break;
+      case "m":
+        cm = value * 100;
+        m = value;
+        ft = value * 3.28084;
+        inch = value * 39.3701;
+        break;
+      case "ft":
+        cm = value * 30.48;
+        m = cm / 100;
+        ft = value;
+        inch = value * 12;
+        break;
+      case "in":
+        cm = value * 2.54;
+        m = cm / 100;
+        ft = value / 12;
+        inch = value;
+        break;
+    }
+
+    output.innerHTML = `
+      <strong>Centimeters:</strong> ${cm.toFixed(2)} cm<br>
+      <strong>Meters:</strong> ${m.toFixed(3)} m<br>
+      <strong>Feet:</strong> ${ft.toFixed(3)} ft<br>
+      <strong>Inches:</strong> ${inch.toFixed(2)} in
+    `;
+  }
+
+  heightInput.addEventListener("input", convertHeight);
+  unitInput.addEventListener("change", convertHeight);
+</script>
+
+</body>
+</html>

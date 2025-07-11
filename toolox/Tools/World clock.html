@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>World Clock - Toolox</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 30px;
+    }
+    .clock-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .clock {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 230, 118, 0.3);
+      text-align: center;
+    }
+    .city {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .time {
+      font-size: 1.5rem;
+      color: #a5d6a7;
+    }
+    .back {
+    margin: 15px 10px 0 10px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00e676;
+    color: #121212;
+    transition: background 0.3s ease;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+   }
+   .back:hover {
+     background: #00c853;
+   }
+  </style>
+</head>
+<body>
+
+<h1>World Clock</h1>
+
+<div class="clock-container" id="clocks">
+  <!-- Clocks will be added here -->
+</div>
+
+<a href="file:///C:/Users/pasnsilu/Documents/Toolox%20app%20project/Toolox%20app.html"><button class="back">Back</button></a>
+
+<script>
+  const cities = [
+    { name: "Colombo", timeZone: "Asia/Colombo", flag: "🇱🇰" },
+    { name: "New York", timeZone: "America/New_York", flag: "🇺🇸" },
+    { name: "London", timeZone: "Europe/London", flag: "🇬🇧" },
+    { name: "Tokyo", timeZone: "Asia/Tokyo", flag: "🇯🇵" },
+    { name: "Sydney", timeZone: "Australia/Sydney", flag: "🇦🇺" }
+  ];
+
+  const clocksDiv = document.getElementById("clocks");
+
+  function createClock(city) {
+    const div = document.createElement("div");
+    div.className = "clock";
+    div.innerHTML = `
+      <div class="city">${city.flag} ${city.name}</div>
+      <div class="time" id="time-${city.name}">--:--:--</div>
+    `;
+    clocksDiv.appendChild(div);
+  }
+
+  function updateClocks() {
+    cities.forEach(city => {
+      const now = new Date().toLocaleTimeString("en-US", {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: city.timeZone,
+        hour12: false
+      });
+      document.getElementById(`time-${city.name}`).textContent = now;
+    });
+  }
+
+  cities.forEach(createClock);
+  updateClocks();
+  setInterval(updateClocks, 1000);
+</script>
+
+</body>
+</html>
